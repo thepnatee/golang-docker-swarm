@@ -14,7 +14,7 @@ export let options = {
 
 };
 export default function() {
-  let res = http.get('http://localhost:3000/');
+  let res = http.get('http://localhost:3000/count');
   check(res, {
     'status is 200': r => r.status === 200,
     'content length is correct': r => r.body.length === 13

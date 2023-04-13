@@ -92,13 +92,10 @@ func handleMessage(msg *sqs.Message) {
 	if err := json.Unmarshal([]byte(*msg.Body), &items); err != nil {
 		log.Println(err)
 	}
-	// go Push(items)
 	uuid := uuid.New()
 	info, _ := json.Marshal(items)
-
 	log.Println(uuid)
 	log.Println(string(info))
-
 	// Redis("message-queue:"+uuid.String(), uuid.String())
 
 }

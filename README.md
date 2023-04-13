@@ -1,5 +1,21 @@
 
-## GO
+
+
+
+## Init Project
+
+````
+mv .env.example .env
+````
+### Edit 
+````
+AWS_S3_REGION=<AWS Region>
+CUSTOM_AWS_ACCESS_KEY_ID=<AWS Credential Access key>
+CUSTOM_AWS_SECRET_ACCESS_KEY=<AWSCredential Secret key>
+AWS_QUEUE_NAME=<AWS SQS Service URL Queue>
+````
+### Start Project
+
 ````
 go get .
 ````
@@ -61,16 +77,25 @@ docker run -it -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock dock
 ````
 
 
-## Curl Load Test
+## K6Load Test
+
+Install for MacOS
 ````
-ab -n 10000 -c 100 http://localhost:3001/
+brew install k6
+````
+
+Run Load Test
+````
+k6 run loadtest-demo-docker-swarm.js
+k6 run loadtest-demo.js
+
 ````
 ----------
 
-### Command Restart Init
+### Command Restart
 ````
 docker rm -f go-example:v1.0
-docker service rm go-example-swarm:v1.0
+docker service rm go-example-swarm
 docker build -t go-docker-image:v1.0 -f Dockerfile.dev .     
 docker build -t go-docker-swarm:v1.0 -f Dockerfile.swarm .   
 docker run -d --name go-example -p 3000:3001 go-docker-image:v1.0
