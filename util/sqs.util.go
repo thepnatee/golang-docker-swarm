@@ -99,6 +99,6 @@ func handleMessage(msg *sqs.Message) {
 	log.Println(uuid)
 	log.Println(string(info))
 
-	Redis("test:"+uuid.String(), string(info))
+	// Redis("message-queue:"+uuid.String(), uuid.String())
 
 }

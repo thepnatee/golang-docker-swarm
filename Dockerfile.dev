@@ -7,7 +7,7 @@ COPY . .
 RUN go get .
 
 RUN go build -o main .
-
+ENV APP_ENV=DEV
 EXPOSE 3001
 
 CMD ["./main"]

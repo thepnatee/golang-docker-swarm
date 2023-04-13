@@ -1,36 +1,33 @@
-import http from "k6/http";
-
+import http from 'k6/http';
+import { check } from 'k6';
 
 
 export let options = {
-  vus: 10, // 10 virtual users
-  duration: '30s', // Run the test for 30 seconds
-  rps: 100, // Send 100 requests per second
+  vus: 10, // Number of virtual users
+  rps: 10000, // Target requests per second
+  stages: [
+    { duration: '10s', target: 100 }, // Ramp-up to 100 virtual users over 10 seconds
+    { duration: '20s', target: 100 }, // Stay at 100 virtual users for 20 seconds
+    { duration: '10s', target: 0 }, // Ramp-down to 0 virtual users over 10 seconds
+  ],
+
 };
 
 export default function () {
-  const url = "http://localhost:3001/push";
-  const payload = JSON.stringify({
-    to: "U61198bb44f6c28c97c5818617464ba1d",
-    messages: [
-      {
-        type: "text",
-        text: "Hello, world 1",
-        sender: {
-          name: "Bot",
-          iconUrl: "https://stickershop.line-scdn.net/stickershop/v1/sticker/51626526/ANDROID/sticker.png",
-        },
-      },
-    ],
-  });
-
-  const headers = { "Content-Type": "application/json" };
-
-  const res = http.post(url, payload, { headers });
-
-  check(res, {
-    'status is 200': r => r.status === 200,
-    'content length is correct': r => r.body.length === 13
-  });
-  sleep(1);
+  let headers = { 'Content-Type': 'application/json' };
+  let payload = {
+    "to": "U61198bb44f6c28c97c5818617464ba1d",
+    "messages": [
+        {
+            "type": "text",
+            "text": "Hello, world 2",
+            "sender": {
+                "name": "Bot",
+                "iconUrl": "https://stickershop.line-scdn.net/stickershop/v1/sticker/51626526/ANDROID/sticker.png"
+            }
+        }
+    ]
+  };
+  let res = http.post('http://localhost:3000/push', JSON.stringify(payload), { headers: headers });
+  check(res, { 'status was 200': (r) => r.status == 200 });
 }

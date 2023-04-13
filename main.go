@@ -26,7 +26,7 @@ func main() {
 	fmt.Println("SQSConnect Connected ✅")
 	// Start Consume
 	go util.Read()
-	fmt.Println("SQSConnect Start ✅")
+	fmt.Println("SQSConnect Start")
 
 	var count = 0
 
