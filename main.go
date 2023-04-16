@@ -20,7 +20,6 @@ func main() {
 	app := fiber.New()
 
 	var app_env = os.Getenv("APP_ENV")
-
 	if app_env != "DEV" {
 		go util.SQSConnect()
 		go util.Read()

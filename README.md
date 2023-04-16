@@ -40,7 +40,7 @@ docker build -t go-docker-image:v1.0 -f Dockerfile.dev .
 ````
 
 ````
-docker run -d --name go-example:v1.0 -p 3000:3001 go-docker-image
+docker run -d --name go-example:v1.0 -p 3000:3001 go-docker-image:v1.0
 ````
 
 ------------------------
@@ -55,7 +55,7 @@ docker build -t go-docker-swarm -f Dockerfile.swarm .
 ## Docker swarm cluster
 
 ````
-docker service init                                                                                                                                         
+docker swarm init                                                                                                                                        
 ````
 
 ````

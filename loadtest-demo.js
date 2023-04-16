@@ -4,13 +4,8 @@ import http from 'k6/http';
 
 
 export let options = {
-  vus: 10, // Number of virtual users
-  rps: 3000, // Target requests per second
-  stages: [
-    { duration: '10s', target: 100 }, // Ramp-up to 100 virtual users over 10 seconds
-    { duration: '20s', target: 100 }, // Stay at 100 virtual users for 20 seconds
-    { duration: '10s', target: 0 }, // Ramp-down to 0 virtual users over 10 seconds
-  ],
+  vus: 50, // Number of virtual users
+  duration: '30s',
 
 };
 export default function() {
