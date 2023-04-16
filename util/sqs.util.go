@@ -94,6 +94,7 @@ func handleMessage(msg *sqs.Message) {
 	}
 	uuid := uuid.New()
 	info, _ := json.Marshal(items)
+
 	log.Println(uuid)
 	log.Println(string(info))
 	// Redis("message-queue:"+uuid.String(), uuid.String())
