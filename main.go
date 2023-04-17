@@ -26,7 +26,6 @@ func main() {
 	}
 
 	var count = 0
-
 	app.Get("/count", func(c *fiber.Ctx) error {
 		response := make(map[string]int)
 		count += 1
@@ -37,12 +36,7 @@ func main() {
 	app.Post("/push", func(c *fiber.Ctx) error {
 
 		body := make(map[string]interface{})
-		json.Unmarshal([]byte(c.Body()), &body)
-
-		response := make(map[string]interface{})
-		response["message"] = body
-
-		return c.JSON(response)
+		return c.JSON(body)
 	})
 
 	app.Post("/push-queue", func(c *fiber.Ctx) error {
@@ -54,10 +48,7 @@ func main() {
 
 		go util.SQSWriter(string(info))
 
-		response := make(map[string]interface{})
-		response["message"] = "success"
-
-		return c.JSON(response)
+		return c.JSON(body)
 	})
 
 	app.Use(func(c *fiber.Ctx) error {
